@@ -192,6 +192,84 @@ we could classify this algorithm as O(n^3) becuase that is the dominant term tha
 Algorithm Building Blocks
 --------------------------------------------------------------------------------
 
+### Algorithm Template Format
+- Name
+- Input/Output: Expected format of input data to the algoritm and the resulting values computed.
+- Context: A description of a problem that illustrates when an algorithm is useful and when it will perform at its best.
+- Solution: Real working code with documentation found in the associated code repository.
+- Analysis: A synopsis of the analysis of the algorithm, including performance data and information
+to help you understand the behavior of the algorithm.
+- Variations
+
+### Floating-Point Computation
+Computers perform basic computation on values stored in registers by a central processing unit (CPU).
+These registers have grown in size as computer architectures have evolved from the 8-bit Intel Processors of 1970s to todays 64-bit processors.
+The CPU often supports basic operations such as ADD, MULT, DIVIDE, and SUB over integer values stored within these registers.
+Floating-point units (FPUs) can efficiently process floating-point computations according to the IEEE Standard for Binary Floating-Point Arthmetic (IEEE 754).
+Mathematical computations over integer-based values (such as Booleans, 8-bit shorts, and 16- and 32-bit integers)
+have traditionally been the most efficient CPU computations.
+Programs are often optimized to take advantage of this historic perfomance differential between integer and floating-point calculations.
+
+### Performance
+It is commonly accepted that computations over integer values will be more efficient thatn their floating-point counterparts.
+
+### Rounding Error
+Any computations using floating-oint values may introduce rounding errors because of the nature of the floating-point representation.
+In general, a floating point number is a finite representation designed to approximate a real number whose representation may be infinite.
+In a 32-bit floating-point value, one bit is used for the sign, 8 bits form teh exponent,
+and 23 bits form the manissa (also known as the significand).
+
+The most common way of describing floating-oint error is to use the term relative error,
+which computes the ratio of the absolute error with the desired value.
+It is quite common for these relative errros to be less than 1 part per million.
+
+### Comparing Floating-Point Values
+Because floating-oint values are only approxiate, the simplest oeprations in floating-oint become suspect
+`if (x === y) { ... }`
+The value of the expression (c-a)\*(f-b)-(d-b)\*(e-a) can determine whether these two line segments are collinear
+(i.e. on the same line). If the value is:
+- 0 then the segments are collinear
+- < 0 then the segments are turning to the left (or counterclockwise)
+- > 0 then the segments are turning to the right (or clockwise)
+
+Thus a small rounding error can cause a false positive. Both 32-bit and 64-bit floating-point
+representations fail to capture the true mathematical value of the computations.
+
+One common solution to this situation is to introduce a small value to determien the approximate equality
+between two floatin-oint values. However, won't solve the collinearity problem and it makes it
+difficult to write correct code.
+
+### Greedy
+A Greedy strategy completes a task of size n by incrementally solving the problem in steps.
+
+At each step, a Greedy algorithm will make the best local decision it can given the available information,
+typically reducitn the size of the problem being solved by one. Once all n steps are completed,
+the algorithm returns the computed solution.
+
+Example *Selection Sort* will locate the larget value in A[0, n-1] and swaps it with element in A[n-1].
+
+You can identify a Greedy strategy by the way that subproblems being solved shrink very slowly as an algorithm processes the input.
+When a subproblem can be conpleted in O(log n) then a Greedy strategy will exhibit O(n log n) performance.
+If the subproblem requires O(n) behavior, as it does here with *Selection Sort*, then the overall performance will be O(n^2).
+
+### Divide and Conquer
+A Divide and Conquer strategy solves a problem of size n by dividing it inot two independent subproblems,
+each about havld the size fo teh original problem.
+
+Quite often the solution is recursive, terminating with a base case that can be solved trivially.
+
+### Dynamic Programming
+Dynamic Programming is a variation on Divide and Conquer that solves a problem by subdividing it into
+a number of simpler subporblems that are solved in a specific order.
+
+It solves each smaller problem just once and stores the reulsts for future use to avoid unnecessary recomputation.
+It then solves problems of increasing size, composing together solutions from the results fo these smalelr subproblems.
+
+Dynamic Programming works by storing the results of simpler subproblems.
+The trick in Dynamic Programming is an optimization loop that shows how to compose the results of these
+subproblems to solve larger ones.
+Dynamic programming must evaluate the subproblems in the proper order (i.e., from top row to bottom row, left to right).
+
 Sorting
 --------------------------------------------------------------------------------
 
