@@ -26,3 +26,13 @@ and Binary Search Tree for their ability to spread out the costs assocated with 
 *Sorted access* -> *Binary Search Tree*
 Use Binary Search Tree when you need dynamic membership and the ability to process elements in the collection in sorted order.
 
+
+Sequential Search
+
+Binary Search
+
+Hash-Based Search
+
+Bloom Filter
+
+Bineary Search Tree

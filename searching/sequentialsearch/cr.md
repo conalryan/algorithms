@@ -86,3 +86,18 @@ public class SequentialSearch<T> {
     return false;
 }
 ```
+
+Analysis
+--------------------------------------------------------------------------------
+On average Sequential Search probes n/2 + 1/2 elements.
+That is, you will inspect about half the elements in the collection for each item you find, resulting in O(n) performance.
+
+The best case when the item being sought is the first element in the collection, resulting in O(1) performance.
+
+This algorith exhibits linear growth in the average and worst cases.
+If you doulbe the size of the collection, this should approximately doulbe the amount of time spent searching.
+
+Note how the execution time approximately doubles as the size of the colelction doubles.
+You should also observe that for each collection size n, the worst performance occurs where the target t does not exist in the collection.
+
+
