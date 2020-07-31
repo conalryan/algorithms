@@ -127,4 +127,107 @@ we must choose a data structure for the hash table that optimizes these operatio
 
 Solution
 --------------------------------------------------------------------------------
+The solution for Hash-Based Search contians two parts:
+1. The first is to create the hash table. An example solutino uses linked list to hold the elements
+that has into a specific table element.
+The input elements from collection C are retrieved using an Iterator.
+```java
+/** Reduced for Figure 5-6 in second edition. */
+public void load(Iterator<V> it) {
+  table = (LinkedList<V>[]) new LinkedList[tableSize];
+
+  // Pull each value from the iterator and find desired bin h.
+  // Add to existing list or create new one into which value is added.
+  while (it.hasNext()) {
+    V v = it.next();
+    int h = hashMethod.hash (v);
+    if (table[h] == null) {
+      table[h] = new LinkedList<V>();
+    }
+    table[h].add(v);
+    count++;  
+  }
+}
+```
+Note that `listTable` is composed of `tableSize` bins, each of which is of type `LinkedList<V>` to store the elements.
+
+Once the hash functino returns an index into the hash table, we look to see whether the table bin is empty,.
+If it's empty, we return false, indicating the searched-for string is not in the collection.
+Otherwise, we search the linked list for that bin to determien the presence or absence of the searched-for string.
+
+```java
+public boolean search(V v) {
+  int h = hashMethod.hash (v);
+  LinkedList<V> list = (LinkedList<V>) table[h];
+  if (list == null) { return false; }
+
+  return list.contains(v);
+}
+
+int hash(V v) {
+  int h = v.hashCode();
+  if (h < 0) { h = 0 - h; }
+  return h % tableSize;
+}
+```
+Note that the hash function ensures the hash index is in the rnage [0, tableSize].
+
+Analysis
+--------------------------------------------------------------------------------
+As long as the hash function distributes the elements in the collection fairly evenly,
+Hash-Based Search has excellent performance.
+
+The average time required to search for an element is constant, or O(1).
+
+The search consists of a single look-up in H followed by a linear search through a short list of collisions.
+
+The components to searching for an element in a hash table are:
+
+
+The average time required to search for an element is constant, or O(1).
+
+The search consists of a single look-up in H followed by a linear search through a short list of collisions.
+
+The components to searching for an element in a hash table are:
+1. Computing the hash value O(1)
+2. Accessing the item in the table indexed by the hash value O(1)
+3. Finding the specified item in the presence of collisions O(1) with optimal hash
+
+All Hash-Bashed Search algorithms share the first two components; different behaviors
+stem from variations in collision handling.
+
+1. The cost of computing the hash vlaue msut be bounded by a fixed, constant upper bound.
+If Tk is th time it takes to compute the hash value for the longest string,
+it will require <= Tk to compute any hash value.
+Computing the hash value is therefore considered a constant time operation.
+
+2. The second part of the algorithm also performs in constant time. It table is stored
+on secondary storage, there may be a variation, but this has a constant upper bound.
+
+3. If we can show that the thrid part of the computation also has a constant upper bound,
+it will prove the overall time performance of Hash-Based Search is constant.
+For a hash table, define the load factor a to be the average number of elements in a linked list for some bin H[h].
+More precisely, a = n/b, where b is the number of bins in the hash table and n is the number of elements stored in the hash table.
+
+In the final row, 81% of th elements are hashed to a unique bin and the average number of elements in a bin becomes just a singel digit.
+Regardless, of the initial nuber of elements, you can choose a sufficiently large b value to ensure there will be a small,
+fixed number of elements (on average) in every bin.
+
+This means that searching for an element in a hash table is no longer dependent on the number of elements
+in the hash table, but rather is a fixed cost, producing amortized O(1) performance.
+
+Because a hash table can typically grow large enought to ensure all linked list of elements are small,
+its search performance is considered to be O(1).
+
+However, this is contigent (as always) on having sufficient memory and a suitable hash function to disperse
+the elements throughout the bins of the hash table.
+
+In additino, `java.util.Hashtable` automatically "rehashes" the entire hash table when the load factor is too high.
+The implementation increases the cost of building the hash table, but improves search performance.
+If we prevent the "rehash" capability, search performance in `java.util.Hashtable` is nearly the same as out implementation.
+
+Rehashing while building the hash table improves the overall performance by reducing the average length of the element chains.
+
+Variations
+--------------------------------------------------------------------------------
 
